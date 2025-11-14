@@ -436,6 +436,14 @@ namespace s3d
 		[[nodiscard]]
 		Array<Glyph> getGlyphs(StringView s, Ligature ligature = Ligature::No) const;
 
+		/// @brief 指定した文字列の描画用のグリフ配列を返します。
+		/// @param s 文字列
+		/// @param useFallback フォールバックフォントを使用するか
+		/// @param ligature リガチャ（合字）を有効にするか
+		/// @return 指定した文字列の描画用のグリフ配列
+		[[nodiscard]]
+		Array<Glyph> getGlyphs(StringView s, UseFallback useFallback, Ligature ligature = Ligature::No) const;
+
 		/// @brief フォントを描画するために必要な DrawableText を、文字列から構築します。
 		/// @param text 文字列
 		/// @return DrawableText

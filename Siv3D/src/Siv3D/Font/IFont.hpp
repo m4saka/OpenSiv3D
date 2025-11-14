@@ -92,6 +92,8 @@ namespace s3d
 
 		virtual Array<Glyph> getGlyphs(Font::IDType handleID, StringView s, Ligature ligature) = 0;
 
+		virtual Array<Glyph> getGlyphs(Font::IDType handleID, StringView s, UseFallback useFallback, Ligature ligature) = 0;
+
 		virtual Array<double> getXAdvances(Font::IDType handleID, StringView s, const Array<GlyphCluster>& clusters, double fontSize) = 0;
 
 		virtual RectF region(Font::IDType handleID, StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, double fontSize, double lineHeightScale) = 0;

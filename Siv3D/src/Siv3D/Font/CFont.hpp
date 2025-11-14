@@ -115,6 +115,8 @@ namespace s3d
 
 		Array<Glyph> getGlyphs(Font::IDType handleID, StringView s, Ligature ligature) override;
 
+		Array<Glyph> getGlyphs(Font::IDType handleID, StringView s, UseFallback useFallback, Ligature ligature) override;
+
 		Array<double> getXAdvances(Font::IDType handleID, StringView s, const Array<GlyphCluster>& clusters, double fontSize) override;
 
 		RectF region(Font::IDType handleID, StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, double fontSize, double lineHeightScale) override;

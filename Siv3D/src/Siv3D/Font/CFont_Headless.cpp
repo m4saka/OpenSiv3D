@@ -310,6 +310,37 @@ namespace s3d
 		return glyphs;
 	}
 
+	Array<Glyph> CFont_Headless::getGlyphs(const Font::IDType handleID, const StringView s, const UseFallback useFallback, const Ligature ligature)
+	{
+		const auto& font = m_fonts[handleID];
+		const Array<GlyphCluster> clusters = font->getGlyphClusters(s, useFallback.getBool(), ligature);
+
+		Array<Glyph> glyphs(Arg::reserve = clusters.size());
+		for (const auto& cluster : clusters)
+		{
+			if (useFallback && cluster.fontIndex != 0)
+			{
+				// フォールバックフォントからGlyphを取得
+				const size_t fallbackIndex = (cluster.fontIndex - 1);
+				auto fallbackFont = font->getFallbackFont(fallbackIndex).lock();
+				if (fallbackFont)
+				{
+					Glyph glyph = getGlyphByGlyphIndex(fallbackFont->id(), cluster.glyphIndex);
+					glyph.codePoint = s[cluster.pos];
+					glyphs << glyph;
+					continue;
+				}
+			}
+
+			// メインフォントからGlyphを取得
+			Glyph glyph{ font->getGlyphInfoByGlyphIndex(cluster.glyphIndex) };
+			glyph.codePoint = s[cluster.pos];
+			glyphs << glyph;
+		}
+
+		return glyphs;
+	}
+
 	Array<double> CFont_Headless::getXAdvances(const Font::IDType handleID, const StringView s, const Array<GlyphCluster>& clusters, const double fontSize)
 	{
 		const auto& font = m_fonts[handleID];

@@ -423,6 +423,11 @@ namespace s3d
 		return SIV3D_ENGINE(Font)->getGlyphs(m_handle->id(), s, ligature);
 	}
 
+	Array<Glyph> Font::getGlyphs(const StringView s, const UseFallback useFallback, const Ligature ligature) const
+	{
+		return SIV3D_ENGINE(Font)->getGlyphs(m_handle->id(), s, useFallback, ligature);
+	}
+
 	DrawableText Font::operator()(const String& text) const
 	{
 		return{ *this, text };
